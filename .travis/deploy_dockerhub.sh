@@ -1,5 +1,4 @@
 #!/bin/sh
-DOCKER_PATH=$DOCKER_USER/$DOCKERHUB_REPO:$TAG
 
 docker login -u $DOCKER_USER -p $DOCKER_PASS
 if [ "$TRAVIS_BRANCH" = "master" ]; then
@@ -7,8 +6,11 @@ if [ "$TRAVIS_BRANCH" = "master" ]; then
 else
     TAG="$TRAVIS_BRANCH"
 fi
+
+DOCKER_PATH=$DOCKER_USER/$DOCKERHUB_REPO:$TAG
+
 docker build -f Dockerfile -t $DOCKER_PATH .
-docker login -u $DOCKER_USER
+docker login -u $DOCKER_USER -p $DOCKER_PASS
 docker push $DOCKER_PATH
 
 
