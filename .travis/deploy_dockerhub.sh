@@ -8,9 +8,6 @@ else
 fi
 
 DOCKER_PATH=$DOCKER_USER/$DOCKERHUB_REPO:$TAG
-
 docker build -f Dockerfile -t $DOCKER_PATH .
-docker login -u $DOCKER_USER -p $DOCKER_PASS
+docker tag $TAG $DOCKER_USER/$DOCKERHUB_REPO:$TAG
 docker push $DOCKER_PATH
-
-
